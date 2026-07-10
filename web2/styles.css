@@ -1,0 +1,73 @@
+#board {
+    display:grid;
+    grid-template-columns: repeat(8, 1fr);
+}
+
+.watch {
+    width: 12svw;
+    height: 12svw;
+    border: 1px solid rgb(184, 184, 184);
+    border-radius: 50%;
+    position: relative;
+    background: #f9f9f9;
+}
+
+.hand {
+    position: absolute;
+    border: 0px;
+    border-width:0;
+    bottom: 50%;
+    left: 50%;
+    transform-origin: center bottom;
+    border-radius: 2svw;
+    /* box-shadow: 0 0 0 0.25svw; */
+    width: 1svw;
+    height: 5.5svw;
+    left:calc(50% - 0.5svw);
+    background: black;
+}
+
+.handselected {
+    /* background-color: rgb(77, 192, 245); */
+    box-shadow: 0 0 0 0.125svw; 
+}
+
+.watchselected {
+    background-color: rgb(87, 255, 255);
+}
+
+.stampselected {
+    background-color: rgb(255, 213, 253);
+}
+
+#frames, #stamps {
+    width: 100%;
+    height: fit-content;
+
+    /**used to scroll text*/
+    white-space: nowrap;    
+    overflow-x: scroll;
+    overflow-y: hidden;
+    /**keep scrolling when
+      *finger or cursor scrolling*/
+    -webkit-overflow-scrolling: touch; 
+}
+#frames > div, #stamps > div {
+    float: none;
+    display: inline-block;
+}
+
+#frames svg {
+    width:10svw;
+}
+#stamps svg {
+/*    max-width:10svw;
+    max-height:3.75svw; */
+    height:3.75svw;
+}
+
+.frameselected {
+    background:rgb(247, 161, 255);
+    border-color:red;
+    border-width: 5px;
+}

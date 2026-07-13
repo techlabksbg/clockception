@@ -11,6 +11,7 @@ class Animation {
         this.ended = false;
         this.cubics = [];
         this.t1 = [];
+        this.t2 = [];
         this.tzero = 0;
         this.tstop = 0;
         this.cubeIndex = 0;
@@ -40,11 +41,13 @@ class Animation {
     bake() {
         this.cubics = [];
         this.t1 = [];
+        this.t2 = [];
         let kf0 = new KeyFrame(this.board);
         for (let k of this.keyframes) {
             let [c,t1] = k.getTimedCubics(kf0);
             this.cubics.push(c);
             this.t1.push(t1);
+            this.t2.push(k.t2);
             kf0 = k;
         }
         this.baked = true;
@@ -90,7 +93,7 @@ class Animation {
         let n = Date.now();
         let t = n-this.tzero;
         console.log(t);
-        if (t>this.t1[this.cubeIndex]) {
+        if (t>this.t1[this.cubeIndex]+this.t2[this.cubeIndex]) {
             if (this.cubeIndex<this.cubics.length-1) {
                 this.tzero = n;
                 t = 0;

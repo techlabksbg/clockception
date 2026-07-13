@@ -78,7 +78,11 @@ function registerKeyboard(board) {
     }
 
     document.body.addEventListener('keydown', (e)=>{
+        //console.log(e.target.tagName);
+        if (e.target.tagName == "INPUT") return;
+        if (e.target.tagName == "TEXTAREA") return;
         console.log(e.code);
+        
         switch(e.code) {
             case "ArrowRight":
             case "KeyL":

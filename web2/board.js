@@ -1,7 +1,7 @@
 import Animation from "./animation.js";
 import registerKeyboard from "./keyboard.js";
 import MultiSelection from "./multiselection.js";
-import { boardHeight, boardWidth } from "./params.js";
+import { boardHeight, boardWidth, maxv } from "./params.js";
 import StampBox from "./stampbox.js";
 import Watch from "./watch.js";
 
@@ -38,6 +38,55 @@ class Board {
                         this.watches[i].hands[j].div.classList.remove("handselected");
                     }
                 }
+            }
+        });
+        this.installCodeHandler();
+    }
+
+    installCodeHandler() {
+        let angleCode = document.getElementById('anglecode');
+        angleCode.addEventListener('keyup',(e)=>{
+            if (e.keyCode==13) {
+                document.getElementById('anglecodebutton').click();
+            }
+        });
+        document.getElementById('anglecodebutton').addEventListener('click', ()=>{
+            try {
+                let anglefn = eval(`(x,y,i)=>${angleCode.value}`);
+                for (let y=0; y<this.h; y++) {
+                    for (let x=0; x<this.w; x++) {
+                        for (let i=0; i<2; i++) {
+                            this.watches[x+y*this.w].hands[i].setAngle(anglefn(x,y,i));
+                        }
+                    }
+                }
+            } catch (err) {
+                console.log(err);
+            }
+        });
+
+        let speedCode = document.getElementById('speedcode');
+        speedCode.addEventListener('keyup',(e)=>{
+            if (e.keyCode==13) {
+                document.getElementById('speedcodebutton').click();
+            }
+        });
+        document.getElementById('speedcodebutton').addEventListener('click', ()=>{
+            try {
+                let speedfn = eval(`(x,y,i)=>${speedCode.value}`);
+                for (let y=0; y<this.h; y++) {
+                    for (let x=0; x<this.w; x++) {
+                        for (let i=0; i<2; i++) {
+                            let s = speedfn(x,y,i);
+                            if (s>1) s=1;
+                            if (s<-1) s=-1;
+                            s *= maxv;
+                            this.watches[x+y*this.w].hands[i].setSpeed(s);
+                        }
+                    }
+                }
+            } catch (err) {
+                console.log(err);
             }
         });
     }

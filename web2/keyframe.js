@@ -7,6 +7,7 @@ class KeyFrame {
     constructor(board) {
         this.board = board;
         this.states = [];        
+        this.t2 = 0;
         for (let w of board.watches) {
             let s = [];
             for (let i=0; i<2; i++) {
@@ -55,7 +56,8 @@ class KeyFrame {
                 let tmax = 0;
                 let c = [];
                 for (let j=0; j<2; j++) {
-                    let source = kf0.states[i][j];
+                    let source = kf0.states[i][j].clone();
+                    source.angle += kf0.t2*source.v;  // Adjust for t2
                     let target = this.states[i][order == 0 ? j: 1-j].clone();
                     if (optimizeAngles) {
                         source.angle = ((source.angle % 360)+360)%360;

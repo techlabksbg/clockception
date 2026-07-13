@@ -8,6 +8,13 @@ class FramesBox {
         this.multiselection = new MultiSelection({elements:[], className:"frameselected",
             clickCallback:(i)=>{
                this.animation.keyframes[i].apply(); 
+               document.getElementById("t2input").value = this.animation.keyframes[i].t2/1000;
+            }
+        });
+        document.getElementById("t2input").addEventListener('change',()=>{
+            let sel = this.multiselection.lastSelected;
+            if (sel>=0) {
+                this.animation.keyframes[sel].t2 = Number(document.getElementById("t2input").value)*1000;
             }
         });
     }

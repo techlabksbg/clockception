@@ -75,6 +75,11 @@ class Stamp {
                     this.board.watches[wi].hands[j].apply(this.hands[i][j]);
                 }
             }
+            // Advance "cursor"
+            this.board.multiselection.selectNone();
+            let y = Math.floor(top/this.board.w);
+            let x = (top % this.board.w + this.w) % this.board.w;
+            this.board.multiselection.select(x+y*this.board.w);
         }
     }
 

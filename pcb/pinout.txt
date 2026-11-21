@@ -1,0 +1,5 @@
+Hall Sensor
+1 - VCC
+2 - GND
+3 - OUT
+

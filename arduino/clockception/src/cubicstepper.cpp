@@ -8,7 +8,6 @@ void CubicStepper::begin(uint8_t *_pins, bool _inverted) {
         pinMode(pins[i], OUTPUT);
         digitalWrite(pins[i], LOW);
     }
-    
 }
 
 void CubicStepper::off() {

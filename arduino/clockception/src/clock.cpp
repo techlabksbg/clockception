@@ -31,7 +31,8 @@ void i2c_receive_handler(int numBytes) {
 
 
 
-void Clock::begin(uint8_t address, uint8_t *pins1, uint8_t *pins2) {
+void Clock::begin(Config _config, uint8_t *pins1, uint8_t *pins2) {
+    config = config;
     // Set up motors
     m1.begin(pins1, true); // invert the first motor, so both turn left
     m1.id = 1;
@@ -39,7 +40,7 @@ void Clock::begin(uint8_t address, uint8_t *pins1, uint8_t *pins2) {
     m2.id = 2;
 
     // Set up I2C Link
-    Wire.begin(address);
+    Wire.begin(config.address);
     TWAR |= 1;  // Enable listening to I2C-Broadcast Address 0
     Wire.onReceive(i2c_receive_handler);
     Wire.onRequest(i2c_request_handler);
@@ -89,8 +90,10 @@ void Clock::loop() {
 }
 
 void Clock::home() {
-    m1.home(0);
-    m2.home(1024);
+    int zero1 = config.offset_m1;
+    int zero2 = 1024+config.offset_m2;
+    m1.home(zero1);
+    m2.home(zero2);
 }
 
 // Sets stored positions and speed (if set previously)

@@ -18,11 +18,8 @@ class Cubic {
 
     float s(float t);
     float v(float t);
-    long nextT(int s, long t);
 
 
     private:
     float c[4];
-    // Smallest solution with tx>t, -1 if not such solution exists
-    float solve(float x, long t);
 };

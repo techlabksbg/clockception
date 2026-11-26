@@ -16,7 +16,8 @@ void CubicStepper::off() {
 
 void CubicStepper::homing() {
     unsigned long now = micros();
-    if (now>nextus) {
+    //if (now>nextus) {
+    if (now-nextus < 0x7fffffffL) {
         int v = analogRead(pins[4]);
         
         if (v>maxHallValue) {
@@ -84,7 +85,8 @@ void CubicStepper::homing() {
 void CubicStepper::cubing() {
     unsigned long now = micros();
     unsigned long t = now-startus;
-    if (now>nextus) {
+    //if (now>nextus) {
+    if (now-nextus < 0x7fffffffL) {
         if (state==CUBING && t>c.t1) {
             Serial.print("t=");
             Serial.print(t);
@@ -132,7 +134,8 @@ void CubicStepper::cubing() {
         Serial.println(s); */
 
         
-        if (now>nextus+20000L) { // Turn off coil after 20ms
+        // if (now>nextus+20000L) { // Turn off coil after 20ms
+        if (now-(nextus+20000L) < 0x7fffffffL) { // Turn off coil after 20ms
             digitalWrite(pins[step], LOW);
         }
         

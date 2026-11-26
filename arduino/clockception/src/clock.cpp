@@ -65,24 +65,19 @@ void Clock::loop() {
         m2.getAnimation()->clear();
         m1.getAnimation()->clear();
         Animation::keyframe f;
-        f.s = -768;
+        f.s = 2048+512;
         f.v = 15000;
-        f.t = 10000;
+        f.t = 15000;
         m2.getAnimation()->push(f);
-        f.s = 768;
+        f.s = -2048+512;
+        f.v = -15000;
         m1.getAnimation()->push(f);
 
-        f.s = 256+2048;
+        f.s = -2048;
         f.v = 0;
-        f.t = 5000;
+        f.t = 15000;
         m2.getAnimation()->push(f);
-        f.s = 2048-256;
         m1.getAnimation()->push(f);
-        f.t = 3000;
-        f.s = 2048;
-        m1.getAnimation()->push(f);
-        f.s = 0;
-        m2.getAnimation()->push(f);
 
         start();
 
